@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mensagen;
 use Illuminate\Http\Request;
 
 class MensagensController extends Controller
@@ -13,9 +14,18 @@ class MensagensController extends Controller
      */
     public function index()
     {
-        //
+        return Mensagen::all();
     }
 
+    public function minhasMensagens(Request $request){
+        return $users = \DB::table('mensagens')
+            ->join('conversas', 'mensagens.id_conversas', '=', 'conversas.id_conversas')
+            ->join('usuarios AS u1', 'conversas.usuario1', '=', 'u1.id_usuario')
+            ->join('usuarios AS u2', 'conversas.usuario2', '=', 'u2.id_usuario')
+            ->where('mensagens.id_conversas','=', 1)
+            ->select('texto_mensagem','hora_envio','u1.nome','u2.nome')
+            ->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +33,7 @@ class MensagensController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +44,8 @@ class MensagensController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Mensagen::create($request->all());
+        return 'mensagem criada com sucesso';
     }
 
     /**

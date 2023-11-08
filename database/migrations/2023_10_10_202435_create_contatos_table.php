@@ -14,8 +14,9 @@ class CreateContatosTable extends Migration
     public function up()
     {
         Schema::create('contatos', function (Blueprint $table) {
-            $table->id();
-            $table->string('id_contatos');
+            $table->id('id_contato');
+            $table->string('nome');
+            $table->string('email');
             $table->timestamps();
         });
     }

@@ -20,9 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable=["password", "email","telefone","nome"];
     public $timestamps=false;
-    public function mensagens(){
-        return $this->hasMany(aux_conv_usuarios::class);
-    }
+    public $primaryKey='id_usuario';
     /**
      * The attributes that should be hidden for serialization.
      *

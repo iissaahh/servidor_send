@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contatos extends Model
 {
+
     use HasFactory;
+
+    protected $fillable = ['nome','imagem',];
+
+
 }

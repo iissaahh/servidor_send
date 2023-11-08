@@ -116,4 +116,9 @@ class UsuarioController extends Controller
     public function token(){
         return csrf_token();
     }
+
+    public function verContatos(){
+        $user=Auth::user()->id;
+        echo $user;
+    }
 }

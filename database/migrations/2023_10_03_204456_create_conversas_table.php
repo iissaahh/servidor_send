@@ -14,8 +14,9 @@ class CreateConversasTable extends Migration
     public function up()
     {
         Schema::create('conversas', function (Blueprint $table) {
-            $table->id();
-            $table->string('mensagem');
+            $table->id('id_conversas')->autoIncrement();
+            $table->foreignId('usuario1')->constrained('usuarios','id_usuario');
+            $table->foreignId('usuario2')->constrained('usuarios','id_usuario');
             $table->timestamps();
         });
     }

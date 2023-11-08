@@ -18,15 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/usuarios',UsuarioController::class);
-Route::resource('/conversas',ConversasController::class)->middleware(Autenticador::class);
-Route::resource('/mensagens',MensagensController::class)->middleware(Autenticador::class);
+Route::resource('/conversas',ConversasController::class);
+Route::resource('/mensagens',MensagensController::class);
 Route::get('/token',[UsuarioController::class,'token']);
-
+Route::get('/minhasConversas',[ConversasController::class,'conversasUsuario']);
+Route::get('/minhasMensagens',[MensagensController::class,'minhasMensagens']);
 Route::get('/login',[UsuarioController::class,'login'])->name('login');
 
 Route::post('/login',[UsuarioController::class,'fazerlogin'])->name('fazerlogin');
 Route::get('/logout',[UsuarioController::class,'logout'])->name('logout');
-
 
 
 

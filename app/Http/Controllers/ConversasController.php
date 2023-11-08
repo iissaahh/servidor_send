@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversas;
 use App\Models\Mensagen;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,14 @@ class ConversasController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return Conversas::all();
+    }
+
+    public function conversasUsuario(){
+        return $users = \DB::table('conversas')
+            ->join('usuarios', 'usuarios.id_usuario', '=', 'conversas.usuario2')
+            ->select('usuarios.nome')
+            ->get();
     }
 
     /**
@@ -36,8 +44,8 @@ class ConversasController extends Controller
     public function store(Request $request)
     {
         $dados=$request->all();
-        Mensagen::create($dados);
-        return 'mensagem criado com sucesso';
+        Conversas::create($dados);
+        return 'conversa criado com sucesso';
     }
 
 

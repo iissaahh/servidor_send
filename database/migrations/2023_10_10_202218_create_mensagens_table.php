@@ -14,9 +14,12 @@ class CreateMensagensTable extends Migration
     public function up()
     {
         Schema::create('mensagens', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_usuarios')->constrained('usuarios','id');
-            $table->foreignId('id_conversas')->constrained('conteudo','id');
+            $table->id('id_mensagem');
+            $table->foreignId('id_conversas')->constrained('conversas','id_conversas');
+            $table->foreignId('id_usuario_enviante')->constrained('usuarios','id_usuario');
+            $table->string('texto_mensagem');
+            $table->date('data_envio');
+            $table->time('hora_envio');
             $table->timestamps();
         });
     }
