@@ -10,7 +10,7 @@ class Contatos extends Model
 
     use HasFactory;
 
-    protected $fillable = ['nome','imagem',];
+    protected $fillable = ['nome','email','id_usuario'];
 
 
 }

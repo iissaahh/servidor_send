@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contatos;
 use Illuminate\Http\Request;
 
 class ContatosController extends Controller
@@ -13,7 +14,7 @@ class ContatosController extends Controller
      */
     public function index()
     {
-        //
+    return Contatos::all();
     }
 
     /**
@@ -23,7 +24,6 @@ class ContatosController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -34,7 +34,8 @@ class ContatosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Contatos::create($request->all());
+        
     }
 
     /**
@@ -80,5 +81,8 @@ class ContatosController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function meusContatos($id){
+        return \DB::select("SELECT * FROM contatos WHERE id_usuario=$id");
     }
 }

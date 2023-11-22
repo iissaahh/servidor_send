@@ -17,6 +17,7 @@ class CreateContatosTable extends Migration
             $table->id('id_contato');
             $table->string('nome');
             $table->string('email');
+            $table->foreignId('id_usuario')->constrained('usuarios','id_usuario');
             $table->timestamps();
         });
     }

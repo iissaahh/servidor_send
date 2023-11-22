@@ -30,6 +30,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function getAuthIdentifierName()
+    {
+        return 'id_usuario';
+    }
 
     /**
      * The attributes that should be cast.

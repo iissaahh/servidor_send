@@ -18,11 +18,21 @@ class ConversasController extends Controller
         return Conversas::all();
     }
 
-    public function conversasUsuario(){
-        return $users = \DB::table('conversas')
+    public function conversasUsuario($id) {
+        $conversas = \DB::table('conversas')
             ->join('usuarios', 'usuarios.id_usuario', '=', 'conversas.usuario2')
-            ->select('usuarios.nome')
+            ->leftJoin('mensagens', 'mensagens.id_conversas', '=', 'conversas.id_conversas')
+            ->where('conversas.usuario1', $id)
+            ->select(
+                'usuarios.nome',
+                'conversas.id_conversas',
+                \DB::raw('MAX(mensagens.data_envio) as ultima_data_envio'),
+                \DB::raw('MAX(mensagens.hora_envio) as ultima_hora_envio')
+            )
+            ->groupBy('usuarios.nome', 'conversas.id_conversas')
             ->get();
+    
+        return $conversas;
     }
 
     /**

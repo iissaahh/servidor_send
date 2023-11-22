@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContatosController;
 use App\Http\Controllers\ConversasController;
 use App\Http\Controllers\MensagensController;
 use App\Http\Controllers\UsuarioController;
@@ -18,10 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/usuarios',UsuarioController::class);
+Route::resource('/contatos',ContatosController::class);
+
 Route::resource('/conversas',ConversasController::class);
 Route::resource('/mensagens',MensagensController::class);
 Route::get('/token',[UsuarioController::class,'token']);
-Route::get('/minhasConversas',[ConversasController::class,'conversasUsuario']);
+Route::get('/minhasConversas/{id}',[ConversasController::class,'conversasUsuario']);
 Route::get('/minhasMensagens',[MensagensController::class,'minhasMensagens']);
 Route::get('/login',[UsuarioController::class,'login'])->name('login');
 
@@ -35,3 +38,11 @@ Route::get('/logout',[UsuarioController::class,'logout'])->name('logout');
     })->middleware(Autenticador::class);
 
 // Route::get('/Conversas',::class)
+Route::get('/teste',function (){
+return response('teste');
+});
+
+
+Route::get('/usuarios/verificar-email/{email}', [UsuarioController::class,'verificarEmail']);
+Route::get('/usuarios/getIdUsuarioByEmail/{email}', [UsuarioController::class, 'getIdUsuarioByEmail']);
+Route::get('/meusContatos/{id}',[ContatosController::class,'meusContatos']);
