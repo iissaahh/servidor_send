@@ -92,4 +92,14 @@ class MensagensController extends Controller
     {
         //
     }
+
+    public function obterMensagensPorConversa($idConversa) {
+        $mensagens = \DB::table('mensagens')
+            ->where('id_conversas', $idConversa)
+            ->select('id_mensagem', 'id_conversas', 'id_usuario_enviante', 'texto_mensagem', 'data_envio', 'hora_envio', 'created_at', 'updated_at')
+            ->get();
+    
+        return response()->json($mensagens);
+    }
+    
 }

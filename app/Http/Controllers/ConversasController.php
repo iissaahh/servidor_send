@@ -105,4 +105,36 @@ class ConversasController extends Controller
     {
         //
     }
+
+    public function verificarConversa($usuario1, $usuario2)
+    {
+        $conversa = Conversas::where(function ($query) use ($usuario1, $usuario2) {
+            $query->where('usuario1', $usuario1)
+                ->where('usuario2', $usuario2);
+        })->orWhere(function ($query) use ($usuario1, $usuario2) {
+            $query->where('usuario1', $usuario2)
+                ->where('usuario2', $usuario1);
+        })->get();
+
+        return response()->json($conversa);
+    }
+    public function obterNomeContato($id_conversas, $id_usuario_enviante)
+    {
+        $nomeContato = \DB::table('conversas')
+            ->where('id_conversas', $id_conversas)
+            ->where(function ($query) use ($id_usuario_enviante) {
+                $query->where('usuario1', $id_usuario_enviante)
+                      ->orWhere('usuario2', $id_usuario_enviante);
+            })
+            ->join('contatos', function ($join) use ($id_usuario_enviante) {
+                $join->on('conversas.usuario1', '=', 'contatos.id_usuario')
+                     ->where('conversas.usuario2', '=', $id_usuario_enviante)
+                     ->orWhere('conversas.usuario2', '=', 'contatos.id_usuario')
+                     ->where('conversas.usuario1', '=', $id_usuario_enviante);
+            })
+            ->value('contatos.nome');
+
+        return response()->json(['nome_contato' => $nomeContato]);
+    }
+
 }

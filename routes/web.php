@@ -46,3 +46,6 @@ return response('teste');
 Route::get('/usuarios/verificar-email/{email}', [UsuarioController::class,'verificarEmail']);
 Route::get('/usuarios/getIdUsuarioByEmail/{email}', [UsuarioController::class, 'getIdUsuarioByEmail']);
 Route::get('/meusContatos/{id}',[ContatosController::class,'meusContatos']);
+Route::get('/conversas/{usuario1}/{usuario2}', [ConversasController::class, 'verificarConversa']);
+Route::get('/obter-nome-contato/{id_conversas}/{id_usuario_enviante}', [ConversasController::class, 'obterNomeContato']);
+Route::get('/mensagens/{idConversa}', [MensagensController::class, 'obterMensagensPorConversa']);

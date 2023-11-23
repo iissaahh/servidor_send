@@ -82,7 +82,10 @@ class ContatosController extends Controller
     {
         //
     }
-    public function meusContatos($id){
-        return \DB::select("SELECT * FROM contatos WHERE id_usuario=$id");
+    public function meusContatos($id) {
+        $contatos = \DB::select("SELECT * FROM contatos WHERE id_usuario = ?", [$id]);
+    
+        return response()->json($contatos);
     }
+    
 }
